@@ -10,7 +10,7 @@ class Appointment < ApplicationRecord
     return if end_time.blank? || start_time.blank?
 
     if end_time <= start_time
-      errors.add(:end_time, "cannot be before the start time")
+      errors.add(:end_time, "Cannot be before the start time")
     end
   end
 end

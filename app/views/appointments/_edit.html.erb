@@ -1,0 +1,5 @@
+<h1>Editing Appointment</h1>
+
+<%= render 'form', appointment: @appointment %>
+
+<%= link_to 'Delete', @appointment,  method: :delete, data: { confirm: 'Are you sure?' } %>

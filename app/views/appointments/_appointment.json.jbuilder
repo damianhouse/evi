@@ -1,2 +1,0 @@
-json.extract! appointment, :id, :patient_id, :user_id, :note, :clinic, :start_time, :end_time, :miles_driven, :complete, :paid_for, :created_at, :updated_at
-json.url appointment_url(appointment, format: :json)

@@ -1,16 +1,13 @@
 
 <h1 class="text-center">Appointments</h1>
 
-<br>
-<%= month_calendar events: @appointments do |date, appointments| %>
-  <%= date.day %>
-  <% appointments.each do |appointment| %>
-    <div>
-      <%= link_to appointment.clinic, appointment %>
-    </div>
-  <% end %>
-<% end %>
+<p class="text-center"><%= link_to 'New Appointment', new_appointment_path, remote: true %></p>
 
+<div class="new-appointment text-center">
+</div>
+<div class="show-appointment text-center">
+</div>
+<div class="calendar">
+  <%= render "calendar" %>
+</div>
 <br>
-
-<p class="text-center"><%= link_to 'New Appointment', new_appointment_path %></p>

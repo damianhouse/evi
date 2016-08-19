@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 20160815181152) do
     t.string   "clinic"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.float    "miles_driven"
-    t.boolean  "complete"
-    t.boolean  "paid_for"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.float    "miles_driven", default: 0.0
+    t.boolean  "complete",     default: false
+    t.boolean  "paid_for",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "patients", force: :cascade do |t|
@@ -36,21 +36,21 @@ ActiveRecord::Schema.define(version: 20160815181152) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.boolean  "admin"
+    t.boolean  "admin",                  default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

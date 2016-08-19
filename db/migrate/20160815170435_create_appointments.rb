@@ -7,9 +7,9 @@ class CreateAppointments < ActiveRecord::Migration[5.0]
       t.string :clinic
       t.datetime :start_time
       t.datetime :end_time
-      t.float :miles_driven
-      t.boolean :complete
-      t.boolean :paid_for
+      t.float :miles_driven, default: 0.0
+      t.boolean :complete, default: false
+      t.boolean :paid_for, default: false
 
       t.timestamps
     end

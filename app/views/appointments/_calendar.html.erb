@@ -1,0 +1,9 @@
+<br>
+<%= month_calendar events: @appointments do |date, appointments| %>
+  <%= date.day %>
+  <% appointments.each do |appointment| %>
+    <div>
+      <%= link_to appointment.clinic, appointment, remote: true %>
+    </div>
+  <% end %>
+<% end %>

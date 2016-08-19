@@ -1,10 +1,11 @@
 <p>
   <strong>Patient:</strong>
-  <%= @appointment.patient_id %>
+  <%= @appointment.patient.first_name.capitalize + " " %><%= @appointment.patient.last_name.capitalize %>
+
 </p>
 
 <p>
-  <strong>User:</strong>
+  <strong>User ID:</strong>
   <%= @appointment.user_id %>
 </p>
 
@@ -43,5 +44,4 @@
   <%= @appointment.paid_for %>
 </p>
 
-<%= link_to 'Edit', edit_appointment_path(@appointment) %> |
-<%= link_to 'Back', appointments_path %>
+<%= link_to 'Edit', edit_appointment_path(@appointment), remote: true %>
