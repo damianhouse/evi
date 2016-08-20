@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   # AJAX pages
 
   get 'close_all' => 'appointments#close_all'
+  get 'all_appointments' => 'appointments#all_appointments'
 
 end

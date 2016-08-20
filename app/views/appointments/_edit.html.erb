@@ -1,5 +1,7 @@
 <h1>Editing Appointment</h1>
 
-<%= render 'form', appointment: @appointment %>
+<%= render 'form', appointment: @appointment, remote: true %>
 
-<%= link_to 'Delete', @appointment,  method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Show', @appointment, class: "btn btn-primary", remote: true %> |
+<%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
+<%= link_to 'Delete', @appointment,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true %>

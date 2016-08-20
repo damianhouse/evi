@@ -1,5 +1,7 @@
 class PatientsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   # GET /patients
   # GET /patients.json
@@ -26,41 +28,30 @@ class PatientsController < ApplicationController
   def create
     @patient = Patient.new(patient_params)
 
-    respond_to do |format|
-      if @patient.save
-        format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
-        format.json { render :show, status: :created, location: @patient }
-      else
-        format.html { render :new }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
+    unless @patient.save
+      render :new, notice: 'Appointment was unable to be created. Check your fields.'
     end
   end
 
   # PATCH/PUT /patients/1
   # PATCH/PUT /patients/1.json
   def update
-    respond_to do |format|
-      if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @patient }
-      else
-        format.html { render :edit }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
-    end
+    @patient.update(patient_params)
+
+    @appointemnts = Appointment.all
+    redirect_to appointments_path
   end
 
   # DELETE /patients/1
   # DELETE /patients/1.json
   def destroy
     @patient.destroy
-    respond_to do |format|
-      format.html { redirect_to patients_url, notice: 'Patient was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render :close_all
   end
 
+  def close_all
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient

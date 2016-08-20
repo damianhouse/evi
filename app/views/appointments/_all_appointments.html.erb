@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Appointments</h1>
+
+<table align="center">
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>User</th>
+      <th>Note</th>
+      <th>Clinic</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Miles driven</th>
+      <th>Complete</th>
+      <th>Paid for</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody align="center">
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.patient_id %></td>
+        <td><%= appointment.user_id %></td>
+        <td><%= appointment.note %></td>
+        <td><%= appointment.clinic %></td>
+        <td><%= appointment.start_time %></td>
+        <td><%= appointment.end_time %></td>
+        <td><%= appointment.miles_driven %></td>
+        <td><%= appointment.complete %></td>
+        <td><%= appointment.paid_for %></td>
+        <td><%= link_to 'Show', appointment, remote: true %></td>
+        <td><%= link_to 'Edit', edit_appointment_path(appointment), remote: true %></td>
+        <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,13 +1,23 @@
 
 <h1 class="text-center">Appointments</h1>
 
-<p class="text-center"><%= link_to 'New Appointment', new_appointment_path, remote: true %></p>
+<p class="new-buttons">
+  <%= link_to 'New Appointment', new_appointment_path, class: "btn btn-success", remote: true%>
+  <%= link_to 'New Patient', new_patient_path, class: "btn btn-success", remote: true%>
+  <%= link_to 'All Patients', patients_path, class: "btn btn-success", remote: true%>
+  <%= link_to 'List Appointments', all_appointments_path, class: "btn btn-success", remote: true%>
+  <%= link_to 'Close All', close_all_path, class: "btn btn-success close-all", remote: true%>
 
-<div class="new-appointment text-center">
+</p>
+
+<div class="patient text-center">
 </div>
-<div class="show-appointment text-center">
+
+<div class="appointment text-center">
 </div>
+
 <div class="calendar">
   <%= render "calendar" %>
 </div>
+
 <br>

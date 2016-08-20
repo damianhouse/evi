@@ -1,7 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
-  before_action :set_appointments, only: [:index]
+  before_action :set_appointments, only: [:index, :all_appointments, :show, :edit, :update, :destroy]
   respond_to :html, :js
 
   # GET /appointments
@@ -9,6 +9,8 @@ class AppointmentsController < ApplicationController
   def index
   end
 
+  def all_appointments
+  end
   # GET /appointments/1
   # GET /appointments/1.json
   def show
@@ -51,7 +53,7 @@ class AppointmentsController < ApplicationController
     @appointment.destroy
 
     @appointments = Appointment.all
-    render :index
+    render :close_all
   end
 
   def close_all

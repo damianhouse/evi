@@ -1,0 +1,7 @@
+<h1>Editing Patient</h1>
+
+<%= render 'form', patient: @patient, remote: true %>
+
+<%= link_to 'Show', @patient, class: "btn btn-primary", remote: true %> |
+<%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
+<%= link_to 'Delete', @patient,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true %>
