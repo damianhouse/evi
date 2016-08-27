@@ -6,23 +6,17 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   </head>
 
   <body>
-    <div class="text-center">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <div class="container-fluid">
+      <div class="text-center notice-and-alert">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+      <%= render "layouts/user_header" %>
+      <%= yield %>
     </div>
-    <div class="login-logout text-right">
-      <% if user_signed_in? %>
-        <div>Welcome back <%= current_user.first_name %> <% current_user.last_name %> !</div>
-        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-      <% else %>
-        <div> <%= link_to 'New User Sign Up', new_user_registration_path %> |
-              <%= link_to 'User Sign In', new_user_session_path %>
-        </div>
-      <% end %>
-    </div>
-    <%= yield %>
   </body>
 </html>

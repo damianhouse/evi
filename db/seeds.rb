@@ -9,7 +9,7 @@ counter = 5
 
 while counter >= 0
   i = User.create!(email: "#{counter}" + "@gmail.com", password: "password")
-  patient = Patient.create!(email: "#{counter}" + "@gmail.com", first_name: "first" + "#{counter}", last_name: "last" + "#{counter}")
+  patient = Patient.create!(email: "#{counter}" + "@gmail.com", first_name: "first" + "#{counter}", last_name: "last" + "#{counter}", phone_number: "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}" + "#{counter}")
   Appointment.create!(user_id: i.id, patient_id: patient.id, clinic: "clinic#{counter}", start_time: (DateTime.now + counter.days), end_time: (DateTime.now + counter.days + counter.minute))
   counter -= 1
 end

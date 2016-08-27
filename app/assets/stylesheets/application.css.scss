@@ -15,7 +15,7 @@
  @import "bootstrap";
  @import "appointments";
  @import "general";
-
+ 
 .text-center {
   text-align: center;
 }
@@ -24,4 +24,7 @@
 }
 .login-logout {
   padding-right: 10%;
+}
+.notice-and-alert {
+  padding-top: 10px;
 }

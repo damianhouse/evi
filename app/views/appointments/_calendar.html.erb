@@ -1,7 +1,6 @@
-<br>
-<%= month_calendar events: @appointments do |date, appointments| %>
+<%= month_calendar events: @appointments, previous_link: appointments_ajax_previous_link, remote: true, next_link: appointments_ajax_next_link do |date, events| %>
   <%= date.day %>
-  <% appointments.each do |appointment| %>
+  <% events.each do |appointment| %>
     <div>
       <%= link_to appointment.clinic, appointment, remote: true %>
     </div>
