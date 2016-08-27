@@ -5,5 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :appointments
   has_many :patients
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
   
 end
