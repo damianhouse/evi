@@ -15,7 +15,10 @@
  @import "bootstrap";
  @import "appointments";
  @import "general";
- 
+
+#desktopshow {
+  @include sr-only-focusable;
+}
 .text-center {
   text-align: center;
 }
