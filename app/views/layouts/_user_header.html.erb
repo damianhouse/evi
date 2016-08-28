@@ -20,8 +20,8 @@
       <li class="nav-item">
         <%= link_to 'List Appointments', all_appointments_path, class: "nav-link", remote: true%>
       </li>
-      <% if current_user && current_user.is_admin? %>
-      <li class="nav-item">
+      <% if current_user && current_user.admin %>
+        <li class="nav-item">
           <%= link_to 'Admin', rails_admin_path, class: "nav-link" %>
         </li>
       <% end %>
