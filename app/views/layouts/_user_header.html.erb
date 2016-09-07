@@ -15,11 +15,15 @@
         <%= link_to 'New Patient', new_patient_path, class: "nav-link", remote: true%>
       </li>
       <li class="nav-item">
-        <%= link_to 'All Patients', patients_path, class: "nav-link", remote: true%>
+        <%= link_to 'New Interpreter', new_user_registration_path, class: "nav-link", remote: true%>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'List Patients', patients_path, class: "nav-link", remote: true%>
       </li>
       <li class="nav-item">
         <%= link_to 'List Appointments', all_appointments_path, class: "nav-link", remote: true%>
       </li>
+
       <% if current_user && current_user.admin %>
         <li class="nav-item">
           <%= link_to 'Admin', rails_admin_path, class: "nav-link" %>
@@ -27,7 +31,7 @@
       <% end %>
       <div class="pull-xs-right">
         <% if user_signed_in? %>
-          <li class="nav-item hidden-md-down">Welcome back <%= current_user.first_name %>!</li>
+          <li class="nav-item hidden-md-down">Welcome back <%= current_user.full_name %>!</li>
           <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
         <% else %>
           <div> <li class="nav-item"><%= link_to 'New User Sign Up', new_user_registration_path %></li>

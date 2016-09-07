@@ -33,6 +33,7 @@ class AppointmentsController < ApplicationController
 
     if @appointment.save
       @appointments = Appointment.all
+      render notice: 'Appointment was successfully created.'
     else
       render :new, notice: 'Appointment was unable to be created. Check your fields.'
     end
@@ -73,6 +74,6 @@ class AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params.require(:appointment).permit(:patient_id, :user_id, :note, :clinic, :start_time, :end_time, :miles_driven, :complete, :paid_for)
+      params.require(:appointment).permit(:patient_id, :user_id, :note, :clinic, :start_time, :end_time, :miles_driven, :complete, :paid_for, :cancelled)
     end
 end

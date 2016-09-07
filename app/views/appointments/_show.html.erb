@@ -1,6 +1,6 @@
 <p>
   <strong>Patient:</strong>
-  <%= @appointment.patient.first_name.capitalize + " " %><%= @appointment.patient.last_name.capitalize %>
+  <%= @appointment.patient.full_name %>
 
 </p>
 
@@ -34,6 +34,10 @@
   <%= @appointment.miles_driven %>
 </p>
 
+<p>
+  <strong>Cancelled:</strong>
+  <%= @appointment.cancelled %>
+</p>
 <p>
   <strong>Complete:</strong>
   <%= @appointment.complete %>

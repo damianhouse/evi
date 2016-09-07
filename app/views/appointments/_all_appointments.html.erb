@@ -14,6 +14,7 @@
       <th>Miles driven</th>
       <th>Complete</th>
       <th>Paid for</th>
+      <th>Cancelled</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,6 +31,7 @@
         <td><%= appointment.miles_driven %></td>
         <td><%= appointment.complete %></td>
         <td><%= appointment.paid_for %></td>
+        <td><%= appointment.cancelled %></td>
         <td><%= link_to 'Show', appointment, remote: true %></td>
         <td><%= link_to 'Edit', edit_appointment_path(appointment), remote: true %></td>
         <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
