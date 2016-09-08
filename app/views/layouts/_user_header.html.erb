@@ -2,28 +2,29 @@
   <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
     &#9776;
   </button>
-  <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
     <a class="navbar-brand" href="#">EVI</a>
-    <ul class="nav navbar-nav">
-      <li class="nav-item active">
-        <%= link_to 'Home', close_all_path, class: "nav-link", remote: true%>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'New Appointment', new_appointment_path, class: "nav-link", remote: true%>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'New Patient', new_patient_path, class: "nav-link", remote: true%>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'New Interpreter', new_user_registration_path, class: "nav-link", remote: true%>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'List Patients', patients_path, class: "nav-link", remote: true%>
-      </li>
-      <li class="nav-item">
-        <%= link_to 'List Appointments', all_appointments_path, class: "nav-link", remote: true%>
-      </li>
-
+    <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
+    <% if user_signed_in? %>
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <%= link_to 'Home', close_all_path, class: "nav-link", remote: true%>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'New Appointment', new_appointment_path, class: "nav-link", remote: true%>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'New Patient', new_patient_path, class: "nav-link", remote: true%>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'New Interpreter', new_user_registration_path, class: "nav-link", remote: true%>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'List Patients', patients_path, class: "nav-link", remote: true%>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'List Appointments', all_appointments_path, class: "nav-link", remote: true%>
+        </li>
+      <% end %>
       <% if current_user && current_user.admin %>
         <li class="nav-item">
           <%= link_to 'Admin', rails_admin_path, class: "nav-link" %>
@@ -33,10 +34,6 @@
         <% if user_signed_in? %>
           <li class="nav-item hidden-md-down">Welcome back <%= current_user.full_name %>!</li>
           <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
-        <% else %>
-          <div> <li class="nav-item"><%= link_to 'New User Sign Up', new_user_registration_path %></li>
-                <li class="nav-item"><%= link_to 'User Sign In', new_user_session_path %></li>
-          </div>
         <% end %>
       </div>
     </ul>
