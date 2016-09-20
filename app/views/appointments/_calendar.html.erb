@@ -1,4 +1,4 @@
-<%= month_calendar events: @appointments, previous_link: appointments_ajax_previous_link, remote: true, next_link: appointments_ajax_next_link do |date, events| %>
+<%= month_calendar events: @appointments, previous_link: appointments_ajax_previous_link, next_link: appointments_ajax_next_link do |date, events| %>
   <%= date.day %>
   <% events.each do |appointment| %>
     <div>

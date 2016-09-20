@@ -1,11 +1,5 @@
 RailsAdmin.config do |config|
 
-## Only admin can visit Rails Admin
-
-  config.authorize_with do
-    redirect_to main_app.root_path unless current_user.admin
-  end
-
   ### Popular gems integration
 
   ## == Devise ==
