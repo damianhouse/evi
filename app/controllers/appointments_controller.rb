@@ -45,7 +45,6 @@ class AppointmentsController < ApplicationController
     @appointment.update(appointment_params)
 
     @appointemnts = Appointment.all
-    redirect_to appointments_path
   end
 
   # DELETE /appointments/1
