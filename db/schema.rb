@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828191909) do
+ActiveRecord::Schema.define(version: 20160920151451) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160828191909) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.boolean  "cancelled",    default: false
+    t.boolean  "no_show",      default: false
   end
 
   create_table "patients", force: :cascade do |t|
