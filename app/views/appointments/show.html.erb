@@ -1,0 +1,57 @@
+<p>
+  <strong>Patient:</strong>
+  <%= @appointment.patient.full_name %>
+
+</p>
+
+<p>
+  <strong>User ID:</strong>
+  <%= @appointment.user_id %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @appointment.note %>
+</p>
+
+<p>
+  <strong>Clinic:</strong>
+  <%= @appointment.clinic %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @appointment.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @appointment.end_time %>
+</p>
+
+<p>
+  <strong>Miles driven:</strong>
+  <%= @appointment.miles_driven %>
+</p>
+
+<p>
+  <strong>Cancelled:</strong>
+  <%= @appointment.cancelled %>
+</p>
+
+<p>
+  <strong>No Show:</strong>
+  <%= @appointment.no_show %>
+</p>
+
+<p>
+  <strong>Complete:</strong>
+  <%= @appointment.complete %>
+</p>
+
+<p>
+  <strong>Paid for:</strong>
+  <%= @appointment.paid_for %>
+</p>
+
+<%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-primary", remote: true %>
