@@ -19,7 +19,7 @@
 
   <div class="field">
     <%= f.label "Interpreter" %>
-    <%= f.collection_select(:user_id, User.all, :id, :full_name) %>
+    <%= f.collection_select(:user_id, User.all, :id, :full_name, {include_blank: "No Interpreter"}) %>
   </div>
 
   <div class="field">

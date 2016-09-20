@@ -15,7 +15,9 @@
  @import "bootstrap";
  @import "appointments";
  @import "general";
-
+#welcome-header {
+  color: #3DA2F4;
+}
 #desktopshow {
   @include sr-only-focusable;
 }

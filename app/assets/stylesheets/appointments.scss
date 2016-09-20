@@ -7,7 +7,16 @@
 .new-buttons {
   text-align: center;
 }
-
+.no-interpreter {
+  color: orange;
+  font-weight: bold;
+}
+.cancelled {
+  color: red;
+}
+.appointment-set {
+  color: green;
+}
 // .simple-calendar {
 //   .day {
 //     @extend .col-sm-1;

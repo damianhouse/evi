@@ -2,7 +2,7 @@
   <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
     &#9776;
   </button>
-    <a class="navbar-brand" href="#">EVI</a>
+    <a class="navbar-brand" href="/">EVI</a>
     <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
@@ -32,8 +32,8 @@
       <% end %>
       <div class="pull-xs-right">
         <% if user_signed_in? %>
-          <li class="nav-item hidden-md-down">Welcome back <%= current_user.full_name %>!</li>
-          <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+          <li id="welcome-header"class="nav-item hidden-md-down nav-link">Welcome back <%= current_user.first_name%>!</li>
+          <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "nav-link") %></li>
         <% end %>
       </div>
     </ul>

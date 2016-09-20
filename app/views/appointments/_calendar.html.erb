@@ -1,8 +1,18 @@
 <%= month_calendar events: @appointments, previous_link: appointments_ajax_previous_link, next_link: appointments_ajax_next_link do |date, events| %>
   <%= date.day %>
   <% events.each do |appointment| %>
-    <div>
-      <%= link_to appointment.clinic, appointment, remote: true %>
-    </div>
+    <% if appointment.cancelled %>
+      <div>
+        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment cancelled" %>
+      </div>
+    <% elsif appointment.user == nil %>
+      <div>
+        <%= link_to "Interpreter! - #{appointment.clinic}", appointment, remote: true, class: "appointment no-interpreter" %>
+      </div>
+    <% else %>
+      <div>
+        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment appointment-set" %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
