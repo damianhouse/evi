@@ -7,7 +7,7 @@
 
 <p>
   <strong>Interpreter:</strong>
-  <%= @appointment.user.full_name %>
+  <%= @appointment.user.full_name if @appointment.user %>
 </p>
 
 <p>
