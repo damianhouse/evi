@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :invoices
   get 'general/welcome'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :patients
   resources :appointments
-devise_for :users, :controllers => {registrations: 'registrations'}
+
+  devise_for :users, :controllers => {registrations: 'registrations'}
 
   root 'appointments#index'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920151451) do
+ActiveRecord::Schema.define(version: 20160922163123) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(version: 20160920151451) do
     t.datetime "updated_at",                   null: false
     t.boolean  "cancelled",    default: false
     t.boolean  "no_show",      default: false
+    t.integer  "invoice_id"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "miles_total"
+    t.float    "hours_total"
+    t.float    "total_paid"
+    t.date     "paid_on"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "patients", force: :cascade do |t|
@@ -53,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160920151451) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "admin",                  default: false
+    t.float    "hourly_rate"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

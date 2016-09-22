@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @invoice.user_id %>
+</p>
+
+<p>
+  <strong>Miles total:</strong>
+  <%= @invoice.miles_total %>
+</p>
+
+<p>
+  <strong>Hours total:</strong>
+  <%= @invoice.hours_total %>
+</p>
+
+<p>
+  <strong>Total paid:</strong>
+  <%= @invoice.total_paid %>
+</p>
+
+<p>
+  <strong>Paid on:</strong>
+  <%= @invoice.paid_on %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @invoice.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @invoice.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
+<%= link_to 'Back', invoices_path %>
