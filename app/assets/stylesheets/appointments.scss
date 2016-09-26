@@ -17,6 +17,16 @@
 .appointment-set {
   color: green;
 }
+.no-show {
+  color: purple;
+}
+.complete {
+  font-weight: bold;
+  color: green;
+}
+.legend {
+  line-height: 8px;
+}
 // .simple-calendar {
 //   .day {
 //     @extend .col-sm-1;
