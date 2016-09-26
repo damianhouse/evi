@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
     @patient.update(patient_params)
 
     @appointemnts = Appointment.all
-    redirect_to appointments_path
+    redirect_to @patient
   end
 
   # DELETE /patients/1
@@ -51,7 +51,7 @@ class PatientsController < ApplicationController
 
   def close_all
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient

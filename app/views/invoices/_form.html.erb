@@ -1,10 +1,10 @@
-<%= form_for(invoice) do |f| %>
-  <% if invoice.errors.any? %>
+<%= form_for(@invoice, remote: true) do |f| %>
+  <% if @invoice.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
 
       <ul>
-      <% invoice.errors.full_messages.each do |message| %>
+      <% @invoice.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -33,7 +33,7 @@
 
   <div class="field">
     <%= f.label :paid_on %>
-    <%= f.date_select :paid_on %>
+    <%= f.date_select :paid_on, include_blank: true %>
   </div>
 
   <div class="field">
@@ -47,6 +47,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-success", remote: true %>
   </div>
 <% end %>

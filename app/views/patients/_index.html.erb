@@ -1,31 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Patients List</h1>
-
-<table align="center">
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Phone number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody align="center">
-    <% @patients.each do |patient| %>
+<% unless @patients.empty? %>
+  <h1>Patients List</h1>
+  <table align="center">
+    <thead>
       <tr>
-        <td><%= patient.first_name %></td>
-        <td><%= patient.last_name %></td>
-        <td><%= patient.email %></td>
-        <td><%= patient.phone_number %></td>
-        <td><%= link_to 'Show', patient, remote: true %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient), remote: true %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Phone number</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody align="center">
+      <% @patients.each do |patient| %>
+        <tr>
+          <td><%= patient.first_name %></td>
+          <td><%= patient.last_name %></td>
+          <td><%= patient.email %></td>
+          <td><%= patient.phone_number %></td>
+          <td><%= link_to 'Show', patient, remote: true %></td>
+          <td><%= link_to 'Edit', edit_patient_path(patient), remote: true %></td>
+          <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h2>There are no patients to display. Create some patients!</h2>
+<% end %>
 
 <br>

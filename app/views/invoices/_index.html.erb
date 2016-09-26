@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<% unless @invoices.empty? %>
+  <h1>Invoices</h1>
+  <table align="center">
+    <thead>
+      <tr>
+        <th>Interpreter</th>
+        <th>Miles total</th>
+        <th>Hours total</th>
+        <th>Total paid</th>
+        <th>Paid on</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td><%= invoice.user.full_name %></td>
+          <td><%= invoice.miles_total %></td>
+          <td><%= invoice.hours_total %></td>
+          <td><%= invoice.total_paid %></td>
+          <td><%= invoice.paid_on %></td>
+          <td><%= invoice.start_date %></td>
+          <td><%= invoice.end_date %></td>
+          <td><%= link_to 'Show', invoice, remote: true %></td>
+          <td><%= link_to 'Edit', edit_invoice_path(invoice), remote: true %></td>
+          <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h2>There are no invoices to display. Create some invoices!</h2>
+<% end %>

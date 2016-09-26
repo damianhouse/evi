@@ -1,0 +1,7 @@
+<h1>Editing Invoice</h1>
+
+<%= render 'form', invoice: @invoice %>
+
+<%= link_to 'Show', @invoice, class: "btn btn-primary", remote: true %> |
+<%= link_to 'Back', invoices_path, class: "btn btn-warning" , remote: true %> |
+<%= link_to 'Delete', @invoice,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", remote: true %>

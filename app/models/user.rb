@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :appointments
   has_many :patients
+  has_many :invoices
   validates_presence_of :first_name, :last_name
 
 

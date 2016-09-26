@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js
 
   # GET /invoices
   # GET /invoices.json
@@ -32,18 +33,23 @@ class InvoicesController < ApplicationController
     appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, start_date, end_date)
     miles_driven = 0.0
     hours_total = 0.0
-    appointments.each do |appointment|
-      appointment.invoice_id = @invoice.id
-      miles_driven += appointment.miles_driven
-      seconds = (appointment.end_time - appointment.start_time)
-      hours = seconds / (60*60)
-      hours_total += hours
-      appointment.paid_for = true
-      appointment.save!
+    if appointments
+      appointments.each do |appointment|
+        appointment.invoice_id = @invoice.id
+        miles_driven += appointment.miles_driven
+        seconds = (appointment.end_time - appointment.start_time)
+        hours = seconds / (60*60)
+        hours_total += hours
+        appointment.paid_for = true
+        appointment.save!
+      end
+      @invoice.hours_total = hours_total
+      @invoice.miles_total = miles_driven
+      @invoice.total_paid = ((hours_total * hourly_rate) + (miles_driven * 1))
+    else
+      render :new, notice: 'Invoice was unable to be created. No appointments in this time period.'
     end
-    @invoice.hours_total = hours_total
-    @invoice.miles_total = miles_driven
-    @invoice.total_paid = ((hours_total * hourly_rate) + (miles_driven * 1))
+
     respond_to do |format|
       if @invoice.save
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
@@ -59,25 +65,17 @@ class InvoicesController < ApplicationController
   # PATCH/PUT /invoices/1
   # PATCH/PUT /invoices/1.json
   def update
-    respond_to do |format|
-      if @invoice.update(invoice_params)
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @invoice }
-      else
-        format.html { render :edit }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-    end
+    @invoice.update(invoice_params)
+
+    @appointments = Appointment.all
+    redirect_to @invoice
   end
 
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
     @invoice.destroy
-    respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to appointments_path
   end
 
   private

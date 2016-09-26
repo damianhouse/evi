@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<h1>Patient</h1>
 
 <p>
   <strong>First name:</strong>
@@ -20,4 +21,5 @@
   <%= @patient.phone_number %>
 </p>
 
-<%= link_to 'Edit', edit_patient_path(@patient), class: "btn btn-primary", remote: true %>
+<%= link_to 'Edit', edit_patient_path(@patient), class: "btn btn-primary", remote: true %> |
+<%= link_to 'Back', appointments_path, class: "btn btn-warning" %>
