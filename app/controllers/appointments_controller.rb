@@ -55,7 +55,7 @@ class AppointmentsController < ApplicationController
     @appointment.destroy
 
     @appointments = Appointment.all
-    render :close_all
+    redirect_to root_path
   end
 
   def close_all
