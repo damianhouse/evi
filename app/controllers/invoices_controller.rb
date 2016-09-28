@@ -45,7 +45,7 @@ class InvoicesController < ApplicationController
         appointment.paid_for = true
         appointment.save!
       end
-      render @invoice, notice: "Invoice was succesfully created."
+      render notice: "Invoice was succesfully created."
     else
       render :new, notice: 'Invoice was unable to be created. No appointments in this time frame.'
     end
