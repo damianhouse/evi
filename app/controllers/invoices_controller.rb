@@ -42,7 +42,8 @@ class InvoicesController < ApplicationController
           @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
           appointment.paid_for = true
           appointment.save!
-          redirect_to @invoice, notice: 'Invoice was successfully created.'
+          render @invoice, notice: 'Invoice was successfully created.'
+          return
         else
           render :new, notice: 'One or more of the appointments in the time frame do not have an end time.'
           return
