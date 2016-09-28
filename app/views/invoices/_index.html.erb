@@ -28,7 +28,7 @@
           <td><%= invoice.end_date %></td>
           <td><%= link_to 'Show', invoice, remote: true %></td>
           <td><%= link_to 'Edit', edit_invoice_path(invoice), remote: true %></td>
-          <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+          <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

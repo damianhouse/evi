@@ -33,29 +33,25 @@ class InvoicesController < ApplicationController
     appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, start_date, end_date)
     @invoice.miles_total = 0.0
     @invoice.hours_total = 0.0
-    if appointments
+    unless appointments.empty?
       appointments.each do |appointment|
-        appointment.invoice_id = @invoice.id
-        @invoice.miles_total += appointment.miles_driven
-        @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
-        appointment.paid_for = true
-        appointment.save!
+        if appointment.end_time
+          appointment.invoice_id = @invoice.id
+          @invoice.miles_total += appointment.miles_driven
+          @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
+          appointment.paid_for = true
+          appointment.save!
+          redirect_to @invoice, notice: 'Invoice was successfully created.'
+
+        else
+          render :new, notice: 'One or more of the appointments in the time frame do not have an end time.'
+        end
       end
       @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
     else
       render :new, notice: 'Invoice was unable to be created. No appointments in this time period.'
     end
 
-    respond_to do |format|
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
-
-      else
-        format.html { render :new }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /invoices/1
