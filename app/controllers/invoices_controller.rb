@@ -31,21 +31,17 @@ class InvoicesController < ApplicationController
     start_date = @invoice.start_date
     end_date = @invoice.end_date
     appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, start_date, end_date)
-    miles_driven = 0.0
-    hours_total = 0.0
+    @invoice.miles_total = 0.0
+    @invoice.hours_total = 0.0
     if appointments
       appointments.each do |appointment|
         appointment.invoice_id = @invoice.id
-        miles_driven += appointment.miles_driven
-        seconds = (appointment.end_time - appointment.start_time)
-        hours = seconds / (60*60)
-        hours_total += hours
+        @invoice.miles_total += appointment.miles_driven
+        @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
         appointment.paid_for = true
         appointment.save!
       end
-      @invoice.hours_total = hours_total
-      @invoice.miles_total = miles_driven
-      @invoice.total_paid = ((hours_total * hourly_rate) + (miles_driven * 1))
+      @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
     else
       render :new, notice: 'Invoice was unable to be created. No appointments in this time period.'
     end

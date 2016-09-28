@@ -1,7 +1,7 @@
 class Appointment < ApplicationRecord
   belongs_to :user
   belongs_to :patient
-  validates_presence_of :start_time, :end_time, :clinic, :patient_id
+  validates_presence_of :start_time, :clinic, :patient_id
   validate :end_time_is_after_start_time
 
   private
