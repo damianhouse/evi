@@ -35,22 +35,17 @@ class InvoicesController < ApplicationController
     @invoice.hours_total = 0.0
     unless appointments.empty?
       appointments.each do |appointment|
-        if appointment.end_time
-          appointment.invoice_id = @invoice.id
-          @invoice.miles_total += appointment.miles_driven
-          @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
-          @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
-          appointment.paid_for = true
-          appointment.save!
-          render @invoice, notice: 'Invoice was successfully created.'
-          return
-        else
-          render :new, notice: 'One or more of the appointments in the time frame do not have an end time.'
-          return
-        end
+        appointment.invoice_id = @invoice.id
+        @invoice.miles_total += appointment.miles_driven
+        @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
+        @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
+        appointment.paid_for = true
+        appointment.save!
+        render @invoice, notice: 'Invoice was successfully created.'
+        return
       end
     else
-      render :new, notice: 'Invoice was unable to be created. No appointments in this time period.'
+      render :new, notice: 'Invoice was unable to be created. No appointments in this time frame.'
     end
 
   end
