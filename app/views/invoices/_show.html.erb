@@ -7,17 +7,17 @@
 
 <p>
   <strong>Miles total:</strong>
-  <%= @invoice.miles_total %>
+  <%= @invoice.miles_total.round(2) %>
 </p>
 
 <p>
   <strong>Hours total:</strong>
-  <%= @invoice.hours_total %>
+  <%= @invoice.hours_total.round(2) %>
 </p>
 
 <p>
   <strong>Total paid:</strong>
-  <%= @invoice.total_paid %>
+  <%= number_to_currency(@invoice.total_paid) %>
 </p>
 
 <p>

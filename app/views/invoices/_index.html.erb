@@ -20,9 +20,9 @@
       <% @invoices.each do |invoice| %>
         <tr>
           <td><%= invoice.user.full_name %></td>
-          <td><%= invoice.miles_total %></td>
-          <td><%= invoice.hours_total %></td>
-          <td><%= invoice.total_paid %></td>
+          <td><%= invoice.miles_total.round(2) %></td>
+          <td><%= invoice.hours_total.round(2) %></td>
+          <td><%= number_to_currency(invoice.total_paid) %></td>
           <td><%= invoice.paid_on %></td>
           <td><%= invoice.start_date %></td>
           <td><%= invoice.end_date %></td>
