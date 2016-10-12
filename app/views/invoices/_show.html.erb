@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+
 <h1>Invoice</h1>
 <p>
   <strong>User:</strong>
@@ -22,7 +23,7 @@
 
 <p>
   <strong>Paid on:</strong>
-  <%= @invoice.paid_on.strftime("%D") %>
+  <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
 </p>
 
 <p>
@@ -36,4 +37,5 @@
 </p>
 
 <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary", remote: true %> |
-<%= link_to 'Back', invoices_path, class: "btn btn-warning", remote: true %>
+<%= link_to 'Back', invoices_path, class: "btn btn-warning", remote: true %> |
+<%= link_to 'Show detailed', @invoice, class: "btn btn-success" %>

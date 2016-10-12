@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+<div class="col-sm-12 text-center">
+  <h1>Invoice</h1>
+
+  <%= render 'all_appointments' %>
+
+  <p>
+    <strong>User:</strong>
+    <%= @invoice.user.full_name %>
+  </p>
+
+  <p>
+    <strong>Start date:</strong>
+    <%= @invoice.start_date.strftime("%D") %>
+  </p>
+
+  <p>
+    <strong>End date:</strong>
+    <%= @invoice.end_date.strftime("%D") %>
+  </p>
+
+  <p>
+    <strong>Paid on:</strong>
+    <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
+  </p>
+
+  <p>
+    <strong>Miles total:</strong>
+    <%= @invoice.miles_total.round(2) %>
+  </p>
+
+  <p>
+    <strong>Hours total:</strong>
+    <%= @invoice.hours_total.round(2) %>
+  </p>
+
+  <p>
+    <strong>Total owed:</strong>
+    <%= number_to_currency(@invoice.total_paid) %>
+  </p>
+
+  <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary" %> |
+  <%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
+  <%= link_to 'Pay', paid_path(id: @invoice), class: "btn btn-success", data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %>
+</div>

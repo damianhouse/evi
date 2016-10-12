@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <% unless @appointments.empty? %>
-  <h1>Appointments List</h1>
   <table align="center">
     <thead>
       <tr>
@@ -41,6 +40,8 @@
       <% end %>
     </tbody>
   </table>
+  <strong>Total number of appointments: <%= @appointments.count %></strong><br />
+
 <% else %>
   <h2>There are no appointments to display. Create some appointments! </h2>
 <% end %>

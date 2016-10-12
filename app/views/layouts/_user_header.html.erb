@@ -3,6 +3,11 @@
     &#9776;
   </button>
     <a class="navbar-brand" href="/">EVI</a>
+    <% if user_signed_in? %>
+      <ul class="nav navbar-nav pull-xs-right hidden-md-up">
+        <li id="gravatar" class="nav-item"><%= gravatar_for current_user %></li>
+      </ul>
+    <% end %>
     <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
@@ -50,8 +55,9 @@
       <% end %>
       <div class="pull-xs-right">
         <% if user_signed_in? %>
-          <li id="welcome-header"class="nav-item hidden-md-down nav-link">Welcome back <%= current_user.first_name%>!</li>
+          <li id="welcome-header" class="nav-item hidden-md-down nav-link">Welcome back <%= current_user.first_name%>!</li>
           <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "nav-link") %></li>
+          <li id="gravatar" class="nav-item hidden-md-down"><%= gravatar_for current_user %></li>
         <% end %>
       </div>
     </ul>
