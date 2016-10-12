@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :paid]
   respond_to :html, :js
 
   # GET /invoices
@@ -40,11 +40,7 @@ class InvoicesController < ApplicationController
         @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
       end
       @invoice.save!
-      appointments.each do |appointment|
-        appointment.invoice_id = @invoice.id
-        appointment.paid_for = true
-        appointment.save!
-      end
+
       render notice: "Invoice was succesfully created."
     else
       render :new, notice: 'Invoice was unable to be created. No appointments in this time frame.'
@@ -52,6 +48,17 @@ class InvoicesController < ApplicationController
 
   end
 
+  def paid
+    appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
+    appointments.each do |appointment|
+      appointment.paid_for = true
+      appointment.save
+    end
+    @invoice.paid_on = Date.today
+    @invoice.save
+    
+    render notice: "Invoice and coorsponding appointments were successfully marked as paid."
+  end
   # PATCH/PUT /invoices/1
   # PATCH/PUT /invoices/1.json
   def update

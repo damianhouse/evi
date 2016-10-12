@@ -23,11 +23,12 @@
           <td><%= invoice.miles_total.round(2) %></td>
           <td><%= invoice.hours_total.round(2) %></td>
           <td><%= number_to_currency(invoice.total_paid) %></td>
-          <td><%= invoice.paid_on %></td>
-          <td><%= invoice.start_date %></td>
-          <td><%= invoice.end_date %></td>
+          <td><%= invoice.paid_on.strftime("%D") %></td>
+          <td><%= invoice.start_date.strftime("%D") %></td>
+          <td><%= invoice.end_date.strftime("%D") %></td>
           <td><%= link_to 'Show', invoice, remote: true %></td>
           <td><%= link_to 'Edit', edit_invoice_path(invoice), remote: true %></td>
+          <td><%= link_to 'Paid', paid_path(id: invoice), data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
           <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>

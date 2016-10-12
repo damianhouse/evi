@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {registrations: 'registrations'}
 
   root 'appointments#index'
-
+  get 'paid' => 'invoices#paid'
+  
   # AJAX pages
-
   get 'close_all' => 'appointments#close_all'
   get 'all_appointments' => 'appointments#all_appointments'
 

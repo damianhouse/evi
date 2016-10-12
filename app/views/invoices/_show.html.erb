@@ -22,17 +22,17 @@
 
 <p>
   <strong>Paid on:</strong>
-  <%= @invoice.paid_on %>
+  <%= @invoice.paid_on.strftime("%D") %>
 </p>
 
 <p>
   <strong>Start date:</strong>
-  <%= @invoice.start_date %>
+  <%= @invoice.start_date.strftime("%D") %>
 </p>
 
 <p>
   <strong>End date:</strong>
-  <%= @invoice.end_date %>
+  <%= @invoice.end_date.strftime("%D") %>
 </p>
 
 <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary", remote: true %> |
