@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="col-sm-12 text-center">
-  <h1>Invoice</h1>
+  <h1>Invoice for <%= @invoice.user.first_name %> from <%= @invoice.start_date.strftime("%D") if @invoice.start_date %> to <%= @invoice.end_date.strftime("%D") if @invoice.end_date %></h1>
 
   <%= render 'all_appointments' %>
 
