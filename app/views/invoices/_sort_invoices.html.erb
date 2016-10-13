@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<% unless @invoices.empty? %>
+<% unless @sorted_invoices.empty? %>
   <h1>Invoices</h1>
   <%= form_tag sort_invoices_path(@user), method: :post, remote: true do %>
-    <%= collection_select(:user, :user_id, @interpreters, :id, :full_name) %>
+    <%= collection_select(:user, :id, @interpreters, :id, :full_name) %>
     <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
   <% end %>
   <table align="center">
@@ -22,7 +22,7 @@
     </thead>
 
     <tbody>
-      <% @invoices.each do |invoice| %>
+      <% @sorted_invoices.each do |invoice| %>
         <tr>
           <td><%= invoice.user.full_name %></td>
           <td><%= invoice.miles_total.round(2) %></td>
@@ -43,5 +43,5 @@
     </tbody>
   </table>
 <% else %>
-  <h2>There are no invoices to display. Create some invoices!</h2>
+  <h2>There are no sorted_invoices to display. Create some sorted_invoices!</h2>
 <% end %>

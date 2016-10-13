@@ -6,6 +6,7 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
   end
 
   # GET /invoices/1
@@ -72,6 +73,16 @@ class InvoicesController < ApplicationController
     redirect_to @invoice
   end
 
+  def sort_invoices
+    @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    if params[:user][:user_id]
+      @user = User.find(params[:user][:user_id])
+    else
+      @user = User.find(params[:user][:id])
+    end
+    @sorted_invoices = Invoice.all.where('user_id = ?', @user.id)
+  end
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy

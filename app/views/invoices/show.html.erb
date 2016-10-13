@@ -35,7 +35,7 @@
   </p>
 
   <p>
-    <strong>Total owed:</strong>
+    <strong><%= "Total owed:" unless @invoice.paid_on %><%= "Total paid:" if @invoice.paid_on %></strong>
     <%= number_to_currency(@invoice.total_paid) %>
   </p>
 

@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   root 'appointments#index'
   get 'paid' => 'invoices#paid'
-  
+  get 'sort_invoices' => 'invoices#sort_invoices'
+  post 'sort_invoices' => 'invoices#sort_invoices'
+
   # AJAX pages
   get 'close_all' => 'appointments#close_all'
   get 'all_appointments' => 'appointments#all_appointments'
