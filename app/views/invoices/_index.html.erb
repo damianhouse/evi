@@ -3,7 +3,7 @@
 <% unless @invoices.empty? %>
   <h1>Invoices</h1>
   <%= form_tag sort_invoices_path(@user), method: :post, remote: true do %>
-    <%= collection_select(:user, :user_id, @interpreters, :id, :full_name) %>
+    <%= collection_select(:user, :user_id, @interpreters, :id, :full_name, include_blank: true) %>
     <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
   <% end %>
   <table align="center">
