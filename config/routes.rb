@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'paid' => 'invoices#paid'
   get 'sort_invoices' => 'invoices#sort_invoices'
   post 'sort_invoices' => 'invoices#sort_invoices'
+  get 'sort_appointments' => 'appointments#sort_appointments'
+  post 'sort_appointments' => 'appointments#sort_appointments'
 
   # AJAX pages
   get 'close_all' => 'appointments#close_all'

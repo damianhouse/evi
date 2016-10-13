@@ -21,6 +21,13 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.new
   end
 
+  def sort_appointments
+    if params[:user][:id] == ""
+      @appointments = Appointment.all
+    else
+      @appointments = Appointment.where("user_id = ?", params[:user][:id])
+    end
+  end
 
   # GET /appointments/1/edit
   def edit

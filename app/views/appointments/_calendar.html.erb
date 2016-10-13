@@ -1,3 +1,9 @@
+<div class="text-right">
+  <%= form_tag sort_appointments_path, method: :post, remote: true do %>
+    <%= collection_select(:user, :id, User.all, :id, :full_name, include_blank: "All Interpreters") %>
+    <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
+  <% end %>
+</div>
 <%= month_calendar events: @appointments, previous_link: appointments_ajax_previous_link, next_link: appointments_ajax_next_link do |date, events| %>
   <%= date.day %>
   <% events.each do |appointment| %>
