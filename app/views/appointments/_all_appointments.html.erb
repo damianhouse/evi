@@ -23,8 +23,8 @@
     <tbody align="center">
       <% @appointments.each do |appointment| %>
         <tr>
-          <td><%= appointment.patient.full_name %></td>
-          <td><%= appointment.user.full_name %></td>
+          <td><%= appointment.patient.full_name if appointment.patient%></td>
+          <td><%= appointment.user.full_name if appointment.user %></td>
           <td><%= appointment.note %></td>
           <td><%= appointment.clinic %></td>
           <td><%= appointment.start_time.strftime("%D") if appointment.start_time %></td>

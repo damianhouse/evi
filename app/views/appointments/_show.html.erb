@@ -55,4 +55,5 @@
   <%= @appointment.paid_for %>
 </p>
 
-<%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-primary", remote: true %>
+<%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-primary", remote: true %> |
+<%= link_to 'Back to Invoice', @invoice, class: "btn btn-primary" %>
