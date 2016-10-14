@@ -14,7 +14,7 @@
         <li class="nav-item active">
           <%= link_to 'Home', close_all_path, class: "nav-link", remote: true%>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown hidden-md-up">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
           <div id="navBarDropDown1"class="dropdown-menu" aria-labelledby="navBarDropDown1">
               <%= link_to '  Appointment', new_appointment_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true %>
@@ -23,12 +23,29 @@
               <%= link_to 'Invoice', new_invoice_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
           </div>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown hidden-md-up">
           <a class="nav-link dropdown-toggle" id="navbarDropdown2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">List</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
               <%= link_to 'Appointments', all_appointments_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
               <%= link_to 'Patients', patients_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
               <%= link_to 'Invoices', invoices_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
+          </div>
+        </li>
+        <li class="nav-item dropdown hidden-sm-down">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
+          <div id="navBarDropDown1"class="dropdown-menu" aria-labelledby="navBarDropDown1">
+              <%= link_to '  Appointment', new_appointment_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true %>
+              <%= link_to 'Patient', new_patient_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true%>
+              <%= link_to 'Interpreter', new_user_registration_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true%>
+              <%= link_to 'Invoice', new_invoice_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true%>
+          </div>
+        </li>
+        <li class="nav-item dropdown hidden-sm-down">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">List</a>
+          <div class="dropdown-menu" aria-labelledby="navBarDropdown2">
+              <%= link_to 'Appointments', all_appointments_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
+              <%= link_to 'Patients', patients_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
+              <%= link_to 'Invoices', invoices_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
           </div>
         </li>
       <% end %>
