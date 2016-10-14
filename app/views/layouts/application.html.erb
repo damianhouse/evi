@@ -15,8 +15,10 @@
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
       </div>
-      <%= render "layouts/user_header" %>
-      <%= yield %>
+      <div class="col-sm-12">
+        <%= render "layouts/user_header" %>
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
