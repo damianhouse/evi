@@ -52,6 +52,7 @@ GEM
     bootstrap (4.0.0.alpha3.1)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bootstrap-table-rails (1.11.0)
     builder (3.2.2)
     byebug (9.0.5)
     coffee-rails (4.2.1)
@@ -207,6 +208,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (~> 4.0.0.alpha3.1)
+  bootstrap-table-rails
   byebug
   coffee-rails (~> 4.2)
   devise

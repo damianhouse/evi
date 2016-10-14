@@ -6,7 +6,7 @@
     <%= collection_select(:user, :user_id, @interpreters, :id, :full_name, include_blank: "All Interpreters") %>
     <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
   <% end %>
-  <table align="center">
+  <table id="table" class="table table-hover" data-smart-display="true" data-toggle="table" align="center"
     <thead>
       <tr>
         <th>Interpreter</th>
