@@ -3,10 +3,10 @@
 <% unless @invoices.empty? %>
   <h1>Invoices</h1>
   <%= form_tag sort_invoices_path(@user), method: :post, remote: true do %>
-    <%= collection_select(:user, :user_id, @interpreters, :id, :full_name, include_blank: "All Interpreters") %>
+    <%= collection_select(:user, :id, @interpreters, :id, :full_name, include_blank: "All Interpreters") %>
     <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
   <% end %>
-  <table id="table" class="table table-hover" data-smart-display="true" data-toggle="table" align="center"
+  <table id="table" class="table table-hover" data-smart-display="true" data-toggle="table" align="center">
     <thead>
       <tr>
         <th>Interpreter</th>
@@ -35,8 +35,11 @@
           <td><%= link_to 'Show', invoice, remote: true %></td>
           <td><%= link_to 'Detailed', invoice %></td>
           <td><%= link_to 'Edit', edit_invoice_path(invoice), remote: true %></td>
-          <td><%= link_to 'Paid', paid_path(id: invoice), data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
-
+          <% if invoice.paid_on.present? %>
+            <td><%= link_to 'Unpay', unpaid_list_path(id: invoice), data: { confirm: "Are you sure this invoice wasn't paid?" }, remote: true %></td>
+          <% else %>
+            <td><%= link_to 'Pay', paid_list_path(id: invoice), data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
+          <% end %>
           <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>

@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :paid]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :paid, :unpaid, :paid_list, :unpaid_list]
   respond_to :html, :js
 
   # GET /invoices
@@ -7,6 +7,7 @@ class InvoicesController < ApplicationController
   def index
     @invoices = Invoice.all
     @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    @interpreters = @interpreters.uniq
   end
 
   # GET /invoices/1
@@ -30,9 +31,7 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params)
     user = User.find(@invoice.user_id)
     hourly_rate = user.hourly_rate
-    start_date = @invoice.start_date
-    end_date = @invoice.end_date
-    appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, start_date, end_date)
+    appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, @invoice.start_date, @invoice.end_date)
     @invoice.miles_total = 0.0
     @invoice.hours_total = 0.0
     unless appointments.empty?
@@ -52,17 +51,57 @@ class InvoicesController < ApplicationController
     end
 
   end
-
+  # GET
   def paid
-    appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
-    appointments.each do |appointment|
+    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
+    @appointments.each do |appointment|
       appointment.paid_for = true
       appointment.save
     end
     @invoice.paid_on = Date.today
     @invoice.save
+    @invoices = Invoice.all
+    render notice: "Invoice and coorsponding appointments were successfully marked as paid."
+  end
+  # GET
+  def unpaid
+    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
+    @appointments.each do |appointment|
+      appointment.paid_for = false
+      appointment.save
+    end
+    @invoice.paid_on = nil
+    @invoice.save
+    @invoices = Invoice.all
+
+    render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
+  end
+
+  # GET
+  def paid_list
+    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
+    @appointments.each do |appointment|
+      appointment.paid_for = true
+      appointment.save
+    end
+    @invoice.paid_on = Date.today
+    @invoice.save
+    @invoices = Invoice.all
 
     render notice: "Invoice and coorsponding appointments were successfully marked as paid."
+  end
+  # GET
+  def unpaid_list
+    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
+    @appointments.each do |appointment|
+      appointment.paid_for = false
+      appointment.save
+    end
+    @invoice.paid_on = nil
+    @invoice.save
+    @invoices = Invoice.all
+
+    render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
   end
   # PATCH/PUT /invoices/1
   # PATCH/PUT /invoices/1.json
@@ -76,12 +115,14 @@ class InvoicesController < ApplicationController
   def sort_invoices
     @invoices = Invoice.all
     @interpreters = @invoices.map { |x| User.find(x.user_id)}
-    if params[:user][:user_id]
-      @user = User.find(params[:user][:user_id])
+    @interpreters = @interpreters.uniq
+    if params[:user][:id] == ""
+      @sorted_invoices = Invoice.all
     else
       @user = User.find(params[:user][:id])
+      @sorted_invoices = Invoice.all.where('user_id = ?', @user.id)
     end
-    @sorted_invoices = Invoice.all.where('user_id = ?', @user.id)
+    @sorted_invoices
   end
   # DELETE /invoices/1
   # DELETE /invoices/1.json

@@ -1,45 +1,10 @@
 <p id="notice"><%= notice %></p>
 <div class="text-center">
   <h1>Invoice for <%= @invoice.user.first_name %> from <%= @invoice.start_date.strftime("%D") if @invoice.start_date %> to <%= @invoice.end_date.strftime("%D") if @invoice.end_date %></h1>
-  <div class="text-center ajax">
+  <div class="ajax">
     <%= render 'all_appointments' %>
   </div>
-  <p>
-    <strong>User:</strong>
-    <%= @invoice.user.full_name %>
-  </p>
-
-  <p>
-    <strong>Start date:</strong>
-    <%= @invoice.start_date.strftime("%D") %>
-  </p>
-
-  <p>
-    <strong>End date:</strong>
-    <%= @invoice.end_date.strftime("%D") %>
-  </p>
-
-  <p>
-    <strong>Paid on:</strong>
-    <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
-  </p>
-
-  <p>
-    <strong>Miles total:</strong>
-    <%= @invoice.miles_total.round(2) %>
-  </p>
-
-  <p>
-    <strong>Hours total:</strong>
-    <%= @invoice.hours_total.round(2) %>
-  </p>
-
-  <p>
-    <strong><%= "Total owed:" unless @invoice.paid_on %><%= "Total paid:" if @invoice.paid_on %></strong>
-    <%= number_to_currency(@invoice.total_paid) %>
-  </p>
-
-  <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary" %> |
-  <%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
-  <%= link_to 'Pay', paid_path(id: @invoice), class: "btn btn-success", data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %>
+  <div class="invoice">
+    <%= render 'show' %>
+  </div>
 </div>

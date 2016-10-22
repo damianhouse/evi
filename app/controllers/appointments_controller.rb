@@ -29,6 +29,14 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def sort_appointments_list
+    if params[:user][:id] == ""
+      @appointments = Appointment.all
+    else
+      @appointments = Appointment.where("user_id = ?", params[:user][:id])
+    end
+  end
+
   # GET /appointments/1/edit
   def edit
   end
@@ -50,10 +58,28 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1.json
   def update
     @appointment.update(appointment_params)
-
+    if @appointment.invoice_id.present?
+      user = User.find(@appointment.user_id)
+      @invoice = Invoice.find(@appointment.invoice_id)
+      appointments = Appointment.where('invoice_id = ?', @appointment.invoice_id)
+      @invoice.miles_total = 0.0
+      @invoice.hours_total = 0.0
+      @invoice.total_paid = 0.0
+      unless appointments.empty?
+        appointments.each do |appointment|
+          @invoice.miles_total += appointment.miles_driven
+          @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
+          @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
+        end
+        @invoice.save!
+        render notice: "Invoice was succesfully created."
+      else
+        render :new, notice: 'Invoice was unable to be created. No appointments in this time frame.'
+      end
+    end
+    @appointment.save!
     @appointemnts = Appointment.all
 
-    redirect_to @appointment
   end
 
   # DELETE /appointments/1
