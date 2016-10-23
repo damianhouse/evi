@@ -30,7 +30,7 @@
           <td><%= number_to_currency(invoice.total_paid) if invoice.paid_on %></td>
           <td><%= number_to_currency(invoice.total_paid) unless invoice.paid_on %></td>
           <td><%= invoice.paid_on.strftime("%D") if invoice.paid_on %></td>
-          <td><%= invoice.start_date.strftime("%D") %></td>
+          <td><%= invoice.start_date.strftime("%D")%></td>
           <td><%= invoice.end_date.strftime("%D") %></td>
           <td><%= link_to 'Show', invoice, remote: true %></td>
           <td><%= link_to 'Detailed', invoice %></td>
