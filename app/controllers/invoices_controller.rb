@@ -29,6 +29,7 @@ class InvoicesController < ApplicationController
     @appointments = Appointment.where('complete = ? AND paid_for = ?', true, false).where.not(user_id: nil)
     @users = @appointments.to_a.map { |x| User.find(x.user_id)}
     @users = @users.uniq
+    @invoices = []
     @users.each do |user|
       appointments = Appointment.all.where('complete = ? AND paid_for = ? AND user_id = ?', true, false, user.id)
       invoice = Invoice.new(user_id: user.id)
