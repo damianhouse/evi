@@ -70,3 +70,18 @@
     <%= f.submit class: "btn btn-success", remote: true %>
   </div>
 <% end %>
+
+<script>
+  $('#appointment_start_time_1i').on('change click', function() {
+    date = $(this).val();
+    $('#appointment_end_time_1i').val(date);
+  });
+  $('#appointment_start_time_2i').on('change click', function() {
+    date = $(this).val();
+    $('#appointment_end_time_2i').val(date);
+  });
+  $('#appointment_start_time_3i').on('change click', function() {
+    date = $(this).val();
+    $('#appointment_end_time_3i').val(date);
+  });
+</script>
