@@ -1,11 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<% unless invoices.empty? %>
+<% unless @invoices.empty? %>
   <h1>Invoices</h1>
-  <%= form_tag sort_invoices_path(@user), method: :post, remote: true do %>
-    <%= collection_select(:user, :id, @interpreters, :id, :full_name, include_blank: "All Interpreters") %>
-    <%= submit_tag 'Filter', class: "btn btn-primary", remote: true %>
-  <% end %>
+
   <table id="table" class="table table-hover col-sm-12" data-smart-display="true" data-toggle="table" align="center">
     <thead>
       <tr>
@@ -22,7 +19,7 @@
     </thead>
 
     <tbody>
-      <% invoices.each do |invoice| %>
+      <% @invoices.each do |invoice| %>
         <tr>
           <td><%= invoice.user.full_name %></td>
           <td><%= invoice.miles_total.round(2) %></td>
