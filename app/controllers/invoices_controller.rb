@@ -32,7 +32,7 @@ class InvoicesController < ApplicationController
     @invoices = []
     @users.each do |user|
       appointments = Appointment.all.where('complete = ? AND paid_for = ? AND user_id = ?', true, false, user.id)
-      invoice = Invoice.new(user_id: user.id, start_date: appointments.order_by('start_time asc').limit(1).strftime("%D"), end_date: appointments.order('start_time desc').limit(1).strftime("%D"))
+      invoice = Invoice.new(user_id: user.id, start_date: appointments.order('start_time asc').limit(1).strftime("%D"), end_date: appointments.order('start_time desc').limit(1).strftime("%D"))
       invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
       invoice.total_paid = ((invoice.hours_total * user.hourly_rate) + (invoice.miles_total * 1))
