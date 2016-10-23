@@ -62,24 +62,13 @@ class AppointmentsController < ApplicationController
       user = User.find(@appointment.user_id)
       @invoice = Invoice.find(@appointment.invoice_id)
       appointments = Appointment.where('invoice_id = ?', @appointment.invoice_id)
-      @invoice.miles_total = 0.0
-      @invoice.hours_total = 0.0
-      @invoice.total_paid = 0.0
-      unless appointments.empty?
-        appointments.each do |appointment|
-          @invoice.miles_total += appointment.miles_driven
-          @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
-          @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
-        end
-        @invoice.save!
-        render notice: "Invoice was succesfully created."
-      else
-        render :new, notice: 'Invoice was unable to be created. No appointments in this time frame.'
-      end
+      @invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
+      @invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
+      @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
+      @invoice.save!
     end
     @appointment.save!
     @appointemnts = Appointment.all
-
   end
 
   # DELETE /appointments/1
