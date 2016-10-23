@@ -55,5 +55,7 @@
   <%= @appointment.paid_for %>
 </p>
 
-<%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-primary", remote: true %> |
-<%= link_to 'Back to Invoice', Invoice.find(@appointment.invoice_id), class: "btn btn-primary" %>
+<%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-primary", remote: true %>
+<% if @appointment.invoice_id.present? %>
+  | <%= link_to 'Invoice', Invoice.find(@appointment.invoice_id), class: "btn btn-primary" %>
+<% end %>

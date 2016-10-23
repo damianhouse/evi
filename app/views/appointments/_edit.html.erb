@@ -3,5 +3,7 @@
 
 <%= link_to 'Show', @appointment, class: "btn btn-primary", remote: true %> |
 <%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
-<%= link_to 'Delete', @appointment,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> |
-<%= link_to 'Back to Invoice', Invoice.find(@appointment.invoice_id), class: "btn btn-primary" %>
+<%= link_to 'Delete', @appointment,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<% if @appointment.invoice_id.present? %>
+  | <%= link_to 'Invoice', Invoice.find(@appointment.invoice_id), class: "btn btn-primary" %>
+<% end %>

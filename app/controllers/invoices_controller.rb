@@ -25,12 +25,30 @@ class InvoicesController < ApplicationController
   def edit
   end
 
+  def auto_create
+    @appointments = Appointment.where('complete = ? AND paid_for = ?', true, false).where.not(user_id: nil)
+    @users = @appointments.to_a.map { |x| User.find(x.user_id)}
+    @users = @users.uniq
+    @users.each do |user|
+      appointments = Appointment.all.where('complete = ? AND paid_for = ? AND user_id = ?', true, false, user.id)
+      invoice = Invoice.new(user_id: user.id)
+      invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
+      invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
+      invoice.total_paid = ((invoice.hours_total * user.hourly_rate) + (invoice.miles_total * 1))
+      invoice.save!
+      @invoices << invoice
+      appointments.each do |appointment|
+        appointment.invoice_id = invoice.id
+        appointment.save!
+      end
+    end
+    @invoices
+  end
   # POST /invoices
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
     user = User.find(@invoice.user_id)
-    hourly_rate = user.hourly_rate
     appointments = Appointment.all.where('user_id = ? AND start_time >= ? AND end_time <= ?', user.id, @invoice.start_date, @invoice.end_date)
     @invoice.miles_total = 0.0
     @invoice.hours_total = 0.0
@@ -38,7 +56,7 @@ class InvoicesController < ApplicationController
       appointments.each do |appointment|
         @invoice.miles_total += appointment.miles_driven
         @invoice.hours_total += (appointment.end_time - appointment.start_time) / (60*60)
-        @invoice.total_paid = ((@invoice.hours_total * hourly_rate) + (@invoice.miles_total * 1))
+        @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
       end
       @invoice.save!
       appointments.each do |appointment|
@@ -61,6 +79,9 @@ class InvoicesController < ApplicationController
     @invoice.paid_on = Date.today
     @invoice.save
     @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    @interpreters = @interpreters.uniq
+
     render notice: "Invoice and coorsponding appointments were successfully marked as paid."
   end
   # GET
@@ -73,6 +94,8 @@ class InvoicesController < ApplicationController
     @invoice.paid_on = nil
     @invoice.save
     @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    @interpreters = @interpreters.uniq
 
     render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
   end
@@ -87,6 +110,8 @@ class InvoicesController < ApplicationController
     @invoice.paid_on = Date.today
     @invoice.save
     @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    @interpreters = @interpreters.uniq
 
     render notice: "Invoice and coorsponding appointments were successfully marked as paid."
   end
@@ -100,6 +125,8 @@ class InvoicesController < ApplicationController
     @invoice.paid_on = nil
     @invoice.save
     @invoices = Invoice.all
+    @interpreters = @invoices.map { |x| User.find(x.user_id)}
+    @interpreters = @interpreters.uniq
 
     render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
   end
@@ -127,6 +154,11 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
+    appointments = Appointment.where('invoice_id = ?', @invoice.id)
+    appointments.each do |appt|
+      appt.invoice_id = nil
+      appt.save!
+    end
     @invoice.destroy
     redirect_to appointments_path
   end
