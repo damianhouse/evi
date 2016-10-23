@@ -31,7 +31,7 @@ class InvoicesController < ApplicationController
     @users = @users.uniq
     @invoices = []
     @users.each do |user|
-      appointments = Appointment.all.where('complete = ? AND AND user_id = ? invoice_id IS NULL' ,true, user.id)
+      appointments = Appointment.all.where('complete = ? AND user_id = ? invoice_id IS NULL' ,true, user.id)
       invoice = Invoice.new(user_id: user.id, start_date: appointments.order('start_time asc').limit(1)[0].start_time.strftime("%y-%m-%d"), end_date: appointments.order('start_time desc').limit(1)[0].start_time.strftime("%y-%m-%d"))
       invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
