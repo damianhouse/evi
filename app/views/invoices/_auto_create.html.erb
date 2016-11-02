@@ -37,11 +37,11 @@
           <% else %>
             <td><%= link_to 'Pay', paid_list_path(id: invoice), data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
           <% end %>
-          <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Delete', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <h2>There are no sorted_invoices to display. Create some sorted_invoices!</h2>
+  <h2>All completed appointments have already been invoiced. Create new completed appointments to create new invoices!</h2>
 <% end %>

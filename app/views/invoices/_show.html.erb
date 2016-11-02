@@ -1,42 +1,39 @@
-<p>
-  <strong>User:</strong>
-  <%= @invoice.user.full_name %>
-</p>
+<div class="text-center">
+  <%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary" %> |
+  <%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
+  <% if @invoice.paid_on.present? %>
+    <td><%= link_to 'Unpay', unpaid_path(id: @invoice), class: "btn btn-success", data: { confirm: "Are you sure this invoice wasn't paid?" }, remote: true %></td>
+  <% else %>
+    <td><%= link_to 'Pay', paid_path(id: @invoice), class: "btn btn-success", data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
+  <% end %>
+</div>
+<div class="text-left">
+  <p>
+    <strong>Interpreter:</strong>
+    <%= @invoice.user.full_name %>
+  </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @invoice.start_date.strftime("%D") %>
-</p>
+  <p>
+    <strong>Miles total:</strong>
+    <%= @invoice.miles_total.round(2) %>
+  </p>
 
-<p>
-  <strong>End date:</strong>
-  <%= @invoice.end_date.strftime("%D") %>
-</p>
+  <p>
+    <strong>Hours total:</strong>
+    <%= @invoice.hours_total.round(2) %>
+  </p>
 
-<p>
-  <strong>Paid on:</strong>
-  <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
-</p>
+  <p>
+    <strong>Paid date:</strong>
+    <% if @invoice.paid_on %>
+      <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
+    <% else %>
+      Not paid yet
+    <% end %>
+  </p>
 
-<p>
-  <strong>Miles total:</strong>
-  <%= @invoice.miles_total.round(2) %>
-</p>
-
-<p>
-  <strong>Hours total:</strong>
-  <%= @invoice.hours_total.round(2) %>
-</p>
-
-<p>
-  <strong><%= "Total owed:" unless @invoice.paid_on %><%= "Total paid:" if @invoice.paid_on %></strong>
-  <%= number_to_currency(@invoice.total_paid) %>
-</p>
-
-<%= link_to 'Edit', edit_invoice_path(@invoice), class: "btn btn-primary" %> |
-<%= link_to 'Back', appointments_path, class: "btn btn-warning" %> |
-<% if @invoice.paid_on.present? %>
-  <td><%= link_to 'Unpay', unpaid_path(id: @invoice), class: "btn btn-success", data: { confirm: "Are you sure this invoice wasn't paid?" }, remote: true %></td>
-<% else %>
-  <td><%= link_to 'Pay', paid_path(id: @invoice), class: "btn btn-success", data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
-<% end %>
+  <h3>
+    <strong><%= "Total owed:" unless @invoice.paid_on %><%= "Total paid:" if @invoice.paid_on %></strong>
+    <%= number_to_currency(@invoice.total_paid) %>
+  </h3>
+</div>

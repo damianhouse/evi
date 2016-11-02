@@ -41,7 +41,7 @@
           <td><%= appointment.cancelled %></td>
           <td><%= link_to 'Show', appointment, remote: true %></td>
           <td><%= link_to 'Edit', edit_appointment_path(appointment), remote: true %></td>
-          <td><%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+          <td><%= link_to 'Delete', appointment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
         </tr>
       <% end %>
     </tbody>
