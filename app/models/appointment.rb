@@ -4,6 +4,10 @@ class Appointment < ApplicationRecord
   validates_presence_of :start_time, :clinic, :patient_id
   validate :end_time_is_after_start_time
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+  
   private
 
   def end_time_is_after_start_time

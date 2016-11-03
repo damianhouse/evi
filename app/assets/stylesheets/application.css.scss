@@ -16,7 +16,14 @@
  @import "appointments";
  @import "general";
  @import "bootstrap-table";
- 
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
 #welcome-header {
   color: #3DA2F4;
 }

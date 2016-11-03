@@ -1,13 +1,12 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy, :paid, :unpaid, :paid_list, :unpaid_list]
+  before_action :set_invoices, only: [:index, :sort_invoices]
+  before_action :set_interpreters, only: [:index, :paid, :unpaid, :paid_list, :unpaid_list, :sort_invoices]
   respond_to :html, :js
 
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.all
-    @interpreters = @invoices.map {|x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
   end
 
   # GET /invoices/1
@@ -62,51 +61,27 @@ class InvoicesController < ApplicationController
   end
   # GET
   def paid
-    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
-    @appointments.map {|appt| appt.paid_for = true; appt.save}
-    @invoice.paid_on = Date.today
-    @invoice.save
-    @invoices = Invoice.all
-    @interpreters = @invoices.map {|x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
-
+    mark_paid(@invoice)
+    set_invoices
     render notice: "Invoice and coorsponding appointments were successfully marked as paid."
   end
   # GET
   def unpaid
-    @appointments = Appointment.all.where('invoice_id = ?', @invoice.id)
-    @appointments.map {|appt| appt.paid_for = false; appt.save}
-    @invoice.paid_on = nil
-    @invoice.save
-    @invoices = Invoice.all
-    @interpreters = @invoices.map {|x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
-
+    mark_unpaid(@invoice)
+    set_invoices
     render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
   end
 
   # GET
   def paid_list
-    @appointments = Appointment.where('invoice_id = ?', @invoice.id)
-    @appointments.map {|appt| appt.paid_for = true; appt.save}
-    @invoice.paid_on = Date.today
-    @invoice.save
-    @invoices = Invoice.all
-    @interpreters = @invoices.map { |x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
-
+    mark_paid(@invoice)
+    set_invoices
     render notice: "Invoice and coorsponding appointments were successfully marked as paid."
   end
   # GET
   def unpaid_list
-    @appointments = Appointment.where('invoice_id = ?', @invoice.id)
-    @appointments.map {|appt| appt.paid_for = false; appt.save}
-    @invoice.paid_on = nil
-    @invoice.save
-    @invoices = Invoice.all
-    @interpreters = @invoices.map {|x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
-
+    mark_unpaid(@invoice)
+    set_invoices
     render notice: "Invoice and coorsponding appointments were successfully marked as unpaid."
   end
   # PATCH/PUT /invoices/1
@@ -119,9 +94,6 @@ class InvoicesController < ApplicationController
   end
 
   def sort_invoices
-    @invoices = Invoice.all
-    @interpreters = @invoices.map {|x| User.find(x.user_id)}
-    @interpreters = @interpreters.uniq
     if params[:user][:id] == ""
       @sorted_invoices = Invoice.all
     else
@@ -141,10 +113,33 @@ class InvoicesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def mark_unpaid(invoice)
+      @appointments = Appointment.all.where('invoice_id = ?', invoice.id)
+      @appointments.map {|appt| appt.paid_for = false; appt.save}
+      invoice.paid_on = nil
+      invoice.save
+    end
+
+    def mark_paid(invoice)
+      @appointments = Appointment.where('invoice_id = ?', invoice.id)
+      @appointments.map {|appt| appt.paid_for = true; appt.save}
+      invoice.paid_on = Date.today
+      invoice.save
+    end
+
+    def set_interpreters
+      @invoices = Invoice.all
+      @interpreters = @invoices.map {|x| User.find(x.user_id)}
+      @interpreters = @interpreters.uniq
+    end
+
     def set_invoice
       @invoice = Invoice.find(params[:id])
     end
 
+    def set_invoices
+      @invoices = Invoice.all.order("start_date ASC")
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
       params.require(:invoice).permit(:user_id, :miles_total, :hours_total, :total_paid, :paid_on, :start_date, :end_date)

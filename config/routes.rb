@@ -20,9 +20,8 @@ Rails.application.routes.draw do
   get 'sort_appointments_list' => 'appointments#sort_appointments_list'
   post 'sort_appointments_list' => 'appointments#sort_appointments_list'
   get 'auto_create' => 'invoices#auto_create'
-  
+
   # AJAX pages
-  get 'close_all' => 'appointments#close_all'
   get 'all_appointments' => 'appointments#all_appointments'
 
 end
