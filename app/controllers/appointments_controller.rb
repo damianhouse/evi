@@ -70,19 +70,22 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1.json
   def destroy
     appointment = @appointment
+    @invoice = Invoice.find(@appointment.invoice_id) if @appointment.invoice_id
+    byebug
     @appointment.destroy
-    update_invoice(appointment) if @appointment.invoice_id.present?
-
+    if appointment.invoice_id.present?
+      update_invoice(appointment)
+      redirect_to @invoice
+    end
     @appointments = Appointment.all
-    redirect_to root_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def update_invoice(appointment)
-      user = User.find(@appointment.user_id)
-      @invoice = Invoice.find(@appointment.invoice_id) if Invoice.find(@appointment.invoice_id)
-      appointments = Appointment.where('invoice_id = ?', @appointment.invoice_id)
+      user = User.find(appointment.user_id)
+      @invoice = Invoice.find(appointment.invoice_id) if Invoice.find(appointment.invoice_id)
+      appointments = Appointment.where('invoice_id = ?', appointment.invoice_id)
       @invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       @invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
       @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
