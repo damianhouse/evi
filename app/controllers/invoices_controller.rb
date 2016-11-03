@@ -34,7 +34,7 @@ class InvoicesController < ApplicationController
       invoice = Invoice.new(user_id: user.id, start_date: appointments.order('start_time asc').limit(1)[0].start_time.strftime("%y-%m-%d"), end_date: appointments.order('start_time desc').limit(1)[0].start_time.strftime("%y-%m-%d"))
       invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
-      invoice.total_paid = ((invoice.hours_total * user.hourly_rate) + (invoice.miles_total * 1))
+      invoice.total_paid = ((invoice.hours_total * user.hourly_rate) + (invoice.miles_total * user.mileage_rate))
       invoice.save!
       @invoices << invoice
       appointments.map {|appt| appt.invoice_id = invoice.id; appt.save!}
@@ -50,7 +50,7 @@ class InvoicesController < ApplicationController
     unless appointments.empty?
       @invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       @invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
-      @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
+      @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * user.mileage_rate))
       @invoice.save!
       appointments.map {|appt| appt.invoice_id = @invoice.id; appt.save!}
       render notice: "Invoice was succesfully created."

@@ -88,7 +88,7 @@ class AppointmentsController < ApplicationController
       appointments = Appointment.where('invoice_id = ?', appointment.invoice_id)
       @invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       @invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
-      @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * 1))
+      @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * user.mileage_rate))
       @invoice.save!
     end
     def set_appointments
