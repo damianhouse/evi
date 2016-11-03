@@ -17,6 +17,9 @@
  @import "general";
  @import "bootstrap-table";
 
+#table > thead > tr > th {
+  text-align: center;
+}
 .alignleft {
   float: left;
 }
