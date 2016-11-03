@@ -49,7 +49,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
 
-    if @appointment.save
+    if @appointment.save!
       @appointments = Appointment.all
       render notice: 'Appointment was successfully created.'
     else
