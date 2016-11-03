@@ -48,17 +48,11 @@
 
   <div class="field">
     <%= f.label :cancelled %>
-    <%= f.check_box :cancelled %>
-  </div>
-
-  <div class="field">
+    <%= f.radio_button :cancelled, name: "status" %>
     <%= f.label :no_show %>
-    <%= f.check_box :no_show %>
-  </div>
-
-  <div class="field">
+    <%= f.radio_button :no_show, name: "status" %>
     <%= f.label :complete %>
-    <%= f.check_box :complete %>
+    <%= f.radio_button :complete, name: "status" %>
   </div>
 
   <div class="field">
