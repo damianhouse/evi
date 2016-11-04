@@ -1,8 +1,8 @@
-<div>
-  <h1>Create Interpreter</h1>
+<div class="text-center">
+  <h2>Edit Interpreter</h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
+  <%= form_for @user do |f| %>
+
     <div class="field">
       <%= f.label :first_name %><br />
       <%= f.text_field :first_name, autofocus: true, placeholder: "Enter your first name" %>
@@ -27,22 +27,29 @@
       <%= f.label :mileage_rate %><br />
       <%= f.text_field :mileage_rate %>
     </div>
+
+
     <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
       <%= f.password_field :password, autocomplete: "off" %>
     </div>
 
     <div class="field">
       <%= f.label :password_confirmation %><br />
       <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div><br />
-
-    <div class="actions">
-      <%= f.submit "Sign up", class: "btn btn-success" %>
     </div>
+
+    <div class="field">
+      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "off" %>
+    </div>
+    <br/>
+    <div class="actions">
+      <%= f.submit "Update", class: "btn btn-success" %>
+    </div>
+    <br/>
   <% end %>
 
-</div>
+  <%= link_to 'Show', @user, class: "btn btn-primary" %> |
+  <%= link_to 'Back', root_path, class: "btn btn-warning" %> |
+  <%= link_to 'Delete', @user,  method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></div>

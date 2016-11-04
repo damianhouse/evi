@@ -27,6 +27,9 @@
               <%= link_to 'Appointments', all_appointments_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
               <%= link_to 'Patients', patients_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
               <%= link_to 'Invoices', invoices_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
+              <% if current_user.admin %>
+                <%= link_to 'Interpreters', users_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
+              <% end %>
           </div>
         </li>
         <li class="nav-item dropdown hidden-sm-down">
@@ -45,12 +48,10 @@
               <%= link_to 'Appointments', all_appointments_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
               <%= link_to 'Patients', patients_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
               <%= link_to 'Invoices', invoices_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
+              <% if current_user.admin %>
+                <%= link_to 'Interpreters', users_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropdown2"}, remote: true%>
+              <% end %>
           </div>
-        </li>
-      <% end %>
-      <% if current_user && current_user.admin %>
-        <li class="nav-item">
-          <%= link_to 'Admin', rails_admin_path, class: "nav-link" %>
         </li>
       <% end %>
       <div class="pull-xs-right">

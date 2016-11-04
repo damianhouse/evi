@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103192248) do
+ActiveRecord::Schema.define(version: 20161104182459) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20161103192248) do
     t.float    "hourly_rate",            default: 0.0
     t.float    "mileage",                default: 0.16
     t.float    "mileage_rate",           default: 0.16
+    t.string   "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,0 +1,36 @@
+<div class="text-center">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>First name:</strong>
+    <%= @user.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%= @user.last_name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong>Phone number:</strong>
+    <%= @user.phone_number %>
+  </p>
+
+  <p>
+    <strong>Mileage rate:</strong>
+    <%= @user.mileage_rate %>
+  </p>
+
+  <p>
+    <strong>Hourly rate:</strong>
+    <%= @user.hourly_rate %>
+  </p>
+
+  <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %> |
+  <%= link_to 'Back', root_path, class: "btn btn-warning" %>
+</div>

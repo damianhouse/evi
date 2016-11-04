@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<% unless @users.empty? %>
+  <h1>Interpreters</h1>
+  <table id="table" class="table table-hover" data-smart-display="true" data-toggle="table" align="center">
+    <thead>
+      <tr>
+        <th>Interpreter</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Hourly Rate</th>
+        <th>Mileage Rate</th>
+
+
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= user.phone_number if user.phone_number %></td>
+          <td><%= user.email %></td>
+
+          <td><%= number_to_currency(user.hourly_rate) if user.hourly_rate %></td>
+          <td><%= number_to_currency(user.mileage_rate) if user.mileage_rate %></td>
+          <td><%= link_to 'Edit', "users/#{user.id}/edit" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h2>There are no interpreters to display. Create some invoices!</h2>
+<% end %>
