@@ -2,7 +2,7 @@
   <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
     &#9776;
   </button>
-    <a class="navbar-brand" href="/">EVI</a>
+    <a id="navbar-brand" class="navbar-brand" href="/">EVI</a>
     <% if user_signed_in? %>
       <ul class="nav navbar-nav pull-xs-right hidden-md-up">
         <li id="gravatar" class="nav-item"><%= gravatar_for current_user %></li>
@@ -12,8 +12,8 @@
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
         <li class="nav-item dropdown hidden-md-up">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
-          <div id="navBarDropDown1"class="dropdown-menu" aria-labelledby="navBarDropDown1">
+          <a class="nav-link dropdown-toggle" id="navBarDropdown1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
+          <div  class="dropdown-menu" aria-labelledby="navBarDropDown1">
               <%= link_to '  Appointment', new_appointment_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true %>
               <%= link_to 'Patient', new_patient_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
               <%= link_to 'Interpreter', new_user_registration_path, class: "nav-link user-header-dropdown-link", data: {toggle: "collapse", target: "#CollapsingNavbar"}, remote: true%>
@@ -33,8 +33,8 @@
           </div>
         </li>
         <li class="nav-item dropdown hidden-sm-down">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
-          <div id="navBarDropDown1"class="dropdown-menu" aria-labelledby="navBarDropDown1">
+          <a class="nav-link dropdown-toggle" id="navBarDropdown1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create</a>
+          <div class="dropdown-menu" aria-labelledby="navBarDropDown1">
               <%= link_to '  Appointment', new_appointment_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true %>
               <%= link_to 'Patient', new_patient_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true%>
               <%= link_to 'Interpreter', new_user_registration_path, class: "nav-link user-header-dropdown-link", data: {toggle: "dropdown", target: "#navBarDropDown1"}, remote: true%>
@@ -57,7 +57,7 @@
       <div class="pull-xs-right">
         <% if user_signed_in? %>
           <li id="welcome-header" class="nav-item hidden-md-down nav-link">Welcome back <%= current_user.first_name%>!</li>
-          <li class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "nav-link") %></li>
+          <li id="logout" class="nav-item"><%= link_to('Logout', destroy_user_session_path, :method => :delete, class: "nav-link") %></li>
           <li id="gravatar" class="nav-item hidden-md-down"><%= gravatar_for current_user %></li>
         <% end %>
       </div>

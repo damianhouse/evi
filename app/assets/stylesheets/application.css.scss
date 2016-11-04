@@ -17,6 +17,24 @@
  @import "general";
  @import "bootstrap-table";
 
+#logout:hover{
+  font-weight: bold;
+}
+#navbar-brand:hover {
+  font-weight: bold;
+}
+#navBarDropdown1 {
+  color: #000000 !important;
+  &:hover {
+    font-weight: bold;
+  }
+}
+#navbarDropdown2 {
+  color: #000000 !important;
+  &:hover {
+    font-weight: bold;
+  }
+}
 #table > thead > tr > th {
   text-align: center;
 }
