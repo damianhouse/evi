@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy, :paid, :unpaid, :paid_list, :unpaid_list]
   before_action :set_invoices, only: [:index, :sort_invoices]
-  before_action :set_interpreters, only: [:index, :paid, :unpaid, :paid_list, :unpaid_list, :sort_invoices]
+  before_action :set_interpreters, only: [:index, :paid, :unpaid, :paid_list, :unpaid_list, :sort_invoices, :destroy]
   respond_to :html, :js
 
   # GET /invoices
@@ -108,7 +108,7 @@ class InvoicesController < ApplicationController
     appointments = Appointment.where('invoice_id = ?', @invoice.id)
     appointments.map {|appt| appt.invoice_id = nil; appt.save!}
     @invoice.destroy
-    redirect_to appointments_path
+    @invoices = Invoice.all.order("start_date ASC")
   end
 
   private
