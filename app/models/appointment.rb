@@ -1,5 +1,5 @@
 class Appointment < ApplicationRecord
-  belongs_to :user, optional: false
+  belongs_to :user, optional: true
   belongs_to :patient
   validates_presence_of :start_time, :clinic, :patient_id
   validate :end_time_is_after_start_time
