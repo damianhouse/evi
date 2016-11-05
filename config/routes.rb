@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
 
   root 'appointments#index'
+  get 'destroy_appointment' => 'appointments#destroy'
   get 'paid' => 'invoices#paid'
   get 'unpaid' => 'invoices#unpaid'
   get 'paid_list' => 'invoices#paid_list'

@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
   before_action :set_appointments, only: [:index, :all_appointments, :show, :edit, :update, :destroy]
-  before_action :set_interpreters, only: [:all_appointments, :sort_appointments, :sort_appointments_list]
+  before_action :set_interpreters, only: [:all_appointments, :sort_appointments, :sort_appointments_list, :destroy]
   respond_to :html, :js
 
   # GET /appointments
@@ -71,7 +71,6 @@ class AppointmentsController < ApplicationController
   def destroy
     appointment = @appointment
     @invoice = Invoice.find(@appointment.invoice_id) if @appointment.invoice_id
-    byebug
     @appointment.destroy
     if appointment.invoice_id.present?
       update_invoice(appointment)
