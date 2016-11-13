@@ -46,7 +46,7 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params)
     user = User.find(@invoice.user_id)
-    appointments = Appointment.where('user_id = ? AND start_time >= ? AND end_time <= ? AND complete = ?', user.id, @invoice.start_date, @invoice.end_date, true)
+    appointments = appointments = Appointment.where('user_id = ?', user.id).where('complete = ? AND invoice_id IS NULL OR no_show = ? AND invoice_id IS NULL' ,true, true)
     unless appointments.empty?
       @invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       @invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}
