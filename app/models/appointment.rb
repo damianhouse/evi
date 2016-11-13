@@ -9,23 +9,27 @@ class Appointment < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def one_hour_for_no_show
+    return true if no_show && end_time.nil? || no_show && (end_time - start_time) != 1.hour
+  end
+
   private
 
-  def end_time_is_after_start_time
-    return if end_time.blank? || start_time.blank?
+    def end_time_is_after_start_time
+      return if end_time.blank? || start_time.blank?
 
-    if end_time < start_time
-      errors.add(:end_time, "Cannot be before the start time")
+      if end_time < start_time
+        errors.add(:end_time, "Cannot be before the start time")
+      end
     end
-  end
 
-  def only_one_status
-    if complete == true && (cancelled == true || no_show == true)
-      errors.add(:complete, "There can be only one status")
-    elsif cancelled == true && (complete == true || no_show == true)
-      errors.add(:cancelled, "There can be only one status")
-    elsif no_show == true && (cancelled == true || complete == true)
-      errors.add(:no_show, "There can be only one status")
+    def only_one_status
+      if complete == true && (cancelled == true || no_show == true)
+        errors.add(:complete, "There can be only one status")
+      elsif cancelled == true && (complete == true || no_show == true)
+        errors.add(:cancelled, "There can be only one status")
+      elsif no_show == true && (cancelled == true || complete == true)
+        errors.add(:no_show, "There can be only one status")
+      end
     end
-  end
 end

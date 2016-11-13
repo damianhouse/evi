@@ -11,12 +11,16 @@
  * It is generally better to create a new file per style scope.
  *
  *= require simple_calendar
+ *= require bootstrap-table
  */
  @import "bootstrap";
  @import "appointments";
  @import "general";
- @import "bootstrap-table";
 
+
+.calendar-title {
+  padding-bottom: -20px;
+}
 #logout:hover{
   font-weight: bold;
 }
@@ -38,12 +42,15 @@
 #table > thead > tr > th {
   text-align: center;
 }
-.alignleft {
+.align-left {
   float: left;
 }
 
-.alignright {
+.align-right {
   float: right;
+}
+.align-center {
+  float: center;
 }
 #welcome-header {
   color: #3DA2F4;

@@ -51,6 +51,8 @@ class AppointmentsController < ApplicationController
 
     if @appointment.save!
       @appointments = Appointment.all
+      @appointment.end_time = (@appointment.start_time + 1.hour) if @appointment.one_hour_for_no_show
+      @appointment.save!
       render notice: 'Appointment was successfully created.'
     else
       render :new, notice: 'Appointment was unable to be created. Check your fields.'
@@ -61,9 +63,13 @@ class AppointmentsController < ApplicationController
   # PATCH/PUT /appointments/1.json
   def update
     @appointment.update(appointment_params)
-    update_invoice(@appointment) if @appointment.invoice_id.present?
     @appointment.save!
-    @appointemnts = Appointment.all
+    if @appointment.one_hour_for_no_show
+      @appointment.end_time = (@appointment.start_time + 1.hour)
+      @appointment.save!
+    end
+    update_invoice(@appointment) if @appointment.invoice_id.present?
+    @appointments = Appointment.all
   end
 
   # DELETE /appointments/1
@@ -90,6 +96,7 @@ class AppointmentsController < ApplicationController
       @invoice.total_paid = ((@invoice.hours_total * user.hourly_rate) + (@invoice.miles_total * user.mileage_rate))
       @invoice.save!
     end
+
     def set_appointments
       @appointments = Appointment.all.order("start_time ASC")
     end

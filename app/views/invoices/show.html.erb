@@ -3,7 +3,7 @@
   <h1>Invoice for <%= @invoice.user.first_name %></h1>
   <h4><%= @invoice.start_date.strftime("%D") if @invoice.start_date %> to <%= @invoice.end_date.strftime("%D") if @invoice.end_date %></h4>
   <div class="ajax">
-    <%= render 'all_appointments' %>
+    <%= render partial: 'all_appointments', locals: {invoice: @invoice} %>
   </div>
 </div>
   <div class="invoice">

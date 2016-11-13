@@ -7,12 +7,42 @@
     <td><%= link_to 'Pay', paid_path(id: @invoice), class: "btn btn-success", data: { confirm: 'Are you sure this invoice was paid?' }, remote: true %></td>
   <% end %>
 </div>
-<div class="text-left">
+<div class="text-center hidden-md-up">
+  <h3>Summary</h3>
   <p>
-    <strong>Interpreter:</strong>
-    <%= @invoice.user.full_name %>
+    <strong>Number of appointments:</strong>
+    <%= @appointments.count %>
+  </p>
+  <p>
+    <strong>Miles total:</strong>
+    <%= @invoice.miles_total.round(2) %>
   </p>
 
+  <p>
+    <strong>Hours total:</strong>
+    <%= @invoice.hours_total.round(2) %>
+  </p>
+
+  <p>
+    <strong>Paid date:</strong>
+    <% if @invoice.paid_on %>
+      <%= @invoice.paid_on.strftime("%D") if @invoice.paid_on %>
+    <% else %>
+      Not paid yet
+    <% end %>
+  </p>
+
+  <h3>
+    <strong><%= "Total owed:" unless @invoice.paid_on %><%= "Total paid:" if @invoice.paid_on %></strong>
+    <%= number_to_currency(@invoice.total_paid) %>
+  </h3>
+</div>
+<div class="hidden-md-down">
+  <h3>Summary</h3>
+  <p>
+    <strong>Number of appointments:</strong>
+    <%= @appointments.count %>
+  </p>
   <p>
     <strong>Miles total:</strong>
     <%= @invoice.miles_total.round(2) %>

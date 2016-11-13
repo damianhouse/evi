@@ -25,12 +25,12 @@ class InvoicesController < ApplicationController
   end
 
   def auto_create
-    @appointments = Appointment.where('complete = ? AND invoice_id IS NULL', true).where.not(user_id: nil)
+    @appointments = Appointment.where('complete = ? OR no_show = ? AND invoice_id IS NULL', true, true).where.not(user_id: nil)
     @users = @appointments.map {|x| User.find(x.user_id)}
     @users = @users.uniq
     @invoices = []
     @users.each do |user|
-      appointments = Appointment.where('complete = ? AND user_id = ? AND invoice_id IS NULL' ,true, user.id)
+      appointments = Appointment.where('user_id = ?', user.id).where('complete = ? AND invoice_id IS NULL OR no_show = ? AND invoice_id IS NULL' ,true, true)
       invoice = Invoice.new(user_id: user.id, start_date: appointments.order('start_time asc').limit(1)[0].start_time.strftime("%y-%m-%d"), end_date: appointments.order('start_time desc').limit(1)[0].start_time.strftime("%y-%m-%d"))
       invoice.miles_total = appointments.reduce(0){|sum, x| sum + x.miles_driven}
       invoice.hours_total = appointments.reduce(0){|sum, x| sum + (x.end_time - x.start_time) / (60*60)}

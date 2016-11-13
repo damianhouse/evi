@@ -1,10 +1,17 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
-    <h3 class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></h3><br>
-    <div>
-        <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "alignleft" %>
-        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "alignright" %>
+    <h3 class="calendar-title hidden-md-down"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></h3><br>
+    <div class="hidden-md-up text-center">
+      <h3 class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></h3><br>
     </div>
+    <div>
+        <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "align-left" %>
+
+        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "align-right" %>
+    </div>
+    <%= form_tag sort_appointments_path, method: :post, id: "filter-interpreters", class: "text-center", remote: true do %>
+      <%= collection_select(:user, :id, User.all, :id, :full_name, include_blank: "All Interpreters") %>
+    <% end %>
   </div>
 </div>
 <div class="simple-calendar table-responsive">
@@ -34,3 +41,9 @@
     </tbody>
   </table>
 </div>
+<script>
+$('#filter-interpreters').on('change', function() {
+  date = $(this).val();
+  $('#appointment_end_time_1i').val(date);
+});
+</script>
