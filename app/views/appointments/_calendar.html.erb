@@ -4,23 +4,23 @@
   <% events.each do |appointment| %>
     <% if appointment.cancelled %>
       <div>
-        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment cancelled" %>
+        <%= link_to "#{appointment.start_time.strftime("%l:%M")} #{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment cancelled" %>
       </div>
     <% elsif appointment.no_show %>
       <div>
-        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment no-show" %>
+        <%= link_to "#{appointment.start_time.strftime("%l:%M")} #{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment no-show" %>
       </div>
     <% elsif appointment.complete %>
       <div>
-        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment complete" %>
+        <%= link_to "#{appointment.start_time.strftime("%l:%M")} #{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment complete" %>
       </div>
     <% elsif appointment.user == nil %>
       <div>
-        <%= link_to "Interpreter! - #{appointment.clinic}", appointment, remote: true, class: "appointment no-interpreter" %>
+        <%= link_to "#{appointment.start_time.strftime("%l:%M")} Interpreter! - #{appointment.clinic}", appointment, remote: true, class: "appointment no-interpreter" %>
       </div>
     <% else %>
       <div>
-        <%= link_to "#{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment appointment-set" %>
+        <%= link_to "#{appointment.start_time.strftime("%l:%M")} #{appointment.user.first_name if appointment.user} - #{appointment.clinic}", appointment, remote: true, class: "appointment appointment-set" %>
       </div>
     <% end %>
   <% end %>
