@@ -19,7 +19,7 @@ gem "simple_calendar", "~> 2.0"
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Provides easy grid system
-gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem 'bootstrap', '~> 4.1.3'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
